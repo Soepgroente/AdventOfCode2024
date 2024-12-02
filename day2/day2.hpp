@@ -9,7 +9,9 @@
 #include <string>
 #include <vector>
 
+#define INPUTSIZE 1000
+
 std::vector<std::string>	parseInput();
-void	silver(std::array<std::vector<int>, 1000>& levels);
-void	gold(std::array<std::vector<int>, 1000>& levels);
-void	print2dArray(std::array<std::vector<int>, 1000>& levels);
+void	silver(std::array<std::vector<int>, INPUTSIZE>& levels);
+void	gold(std::array<std::vector<int>, INPUTSIZE>& levels);
+void	print2dArray(std::array<std::vector<int>, INPUTSIZE>& levels);

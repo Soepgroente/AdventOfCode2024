@@ -1,37 +1,45 @@
 #include "day2.hpp"
 
-static void	handleRemoval(std::vector<int>& level)
+static bool	singleLevel(const std::vector<int> level)
 {
+	int		diff;
 
-}
-
-static bool	singleLevel(std::vector<int>& level)
-{
-	int	diff;
-
-	handleRemoval(level);
-	if (level[0] - level[1] < 0)
+	for (size_t x = 0; x < level.size(); x++)
 	{
-		for (size_t i = 0; i < level.size() - 1; i++)
+		std::vector<int> tmp = level;
+
+		tmp.erase(tmp.begin() + x);
+		if (tmp[0] - tmp[1] < 0)
 		{
-			diff = level[i] - level[i + 1];
-			if (!(diff <= -1 && diff >= -3))
-				return (false);
+			for (size_t i = 0; i < tmp.size() - 1; i++)
+			{
+				diff = tmp[i] - tmp[i + 1];
+				if (!(diff <= -1 && diff >= -3))
+				{
+					break ;
+				}
+				if (i == tmp.size() - 2)
+					return (true);
+			}
+		}
+		else
+		{
+			for (size_t i = 0; i < tmp.size() - 1; i++)
+			{
+				diff = tmp[i] - tmp[i + 1];
+				if (!(diff >= 1 && diff <= 3))
+				{
+					break ;
+				}
+				if (i == tmp.size() - 2)
+					return (true);
+			}
 		}
 	}
-	else
-	{
-		for (size_t i = 0; i < level.size() - 1; i++)
-		{
-			diff = level[i] - level[i + 1];
-			if (!(diff >= 1 && diff <= 3))
-				return (false);
-		}
-	}
-	return (true);
+	return (false);
 }
 
-void	gold(std::array<std::vector<int>, 1000>& levels)
+void	gold(std::array<std::vector<int>, INPUTSIZE>& levels)
 {
 	uint64_t	result = 0;
 

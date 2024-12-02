@@ -25,7 +25,7 @@ static bool	singleLevel(const std::vector<int>& level)
 	return (true);
 }
 
-void	silver(std::array<std::vector<int>, 1000>& levels)
+void	silver(std::array<std::vector<int>, INPUTSIZE>& levels)
 {
 	uint64_t	result = 0;
 

@@ -1,8 +1,8 @@
 #include "day2.hpp"
 
-std::array<std::vector<int>, 1000>	createArrays(std::vector<std::string>& input) 
+std::array<std::vector<int>, INPUTSIZE>	createArrays(std::vector<std::string>& input) 
 {
-	std::array<std::vector<int>, 1000>	levels;
+	std::array<std::vector<int>, INPUTSIZE>	levels;
 
 	for (size_t i = 0; i < levels.size(); i++)
 	{
@@ -20,7 +20,7 @@ std::array<std::vector<int>, 1000>	createArrays(std::vector<std::string>& input)
 int main()
 {
 	std::vector<std::string>	input = parseInput();
-	std::array<std::vector<int>, 1000> levels = createArrays(input);
+	std::array<std::vector<int>, INPUTSIZE> levels = createArrays(input);
 
 	// print2dArray(levels);
 
