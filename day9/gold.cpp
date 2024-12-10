@@ -48,7 +48,7 @@ static std::vector<int>	reorderHardDisc(std::vector<int>& hd)
 	int right = std::distance(hd.begin(), hd.end() - 1);
 
 	// printDrive(newHardDisc);
-	while (hd.size() > 0 && right >= 6)
+	while (hd.size() > 0)
 	{
 		deleteEmpty(hd, right);
 		if (hd.size() == 0)
@@ -61,7 +61,7 @@ static std::vector<int>	reorderHardDisc(std::vector<int>& hd)
 			for (int q = 0; q < fileSize; q++)
 			{
 				newHardDisc[freeSpaceIndex + q] = hd[right];
-				newHardDisc[right] = -1;
+				newHardDisc[right] = -2;
 				hd.pop_back();
 				right--;
 				if (hd.size() == 0)
@@ -70,7 +70,8 @@ static std::vector<int>	reorderHardDisc(std::vector<int>& hd)
 		}
 		else
 		{
-			while (hd[right] != -1)
+			int index = hd[right];
+			while (hd[right] == index)
 			{
 				hd.pop_back();
 				right--;
@@ -90,9 +91,10 @@ void	gold(std::string& input)
 	transformedInput = transform(input.size(), input.c_str());
 	newHardDisc = reorderHardDisc(transformedInput);
 	// printDrive(newHardDisc);
+	// std::cout << std::endl;
 	for (size_t i = 0; i < newHardDisc.size(); i++)
 	{
-		if (newHardDisc[i] != -1)
+		if (newHardDisc[i] >= 0)
 			result += i * newHardDisc[i];
 	}
 	std::cout << "Gold: " << result << std::endl;
