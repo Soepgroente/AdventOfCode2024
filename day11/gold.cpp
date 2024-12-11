@@ -1,7 +1,5 @@
 #include "day11.hpp"
 
-size_t count;
-
 static void	splitNumber(int digits, size_t in, size_t (&entries)[2])
 {
 	entries[0] = in / static_cast<size_t>(pow(10, digits));
@@ -20,50 +18,67 @@ static bool	amountOfDigits(size_t num, int& digits)
 	return (false);
 }
 
-static void	blink(std::vector<size_t>& input, int iter)
+/* static void	printMap(std::map<size_t, size_t>& toPrint)
+{
+	for (auto& it : toPrint)
+	{
+		std::cout << "(" << it.first << "," << it.second << ")" << std::endl;
+	}
+} */
+
+static void	tryToShoveIntoMap(std::map<size_t, size_t>& map, size_t a, size_t b)
+{
+	auto [iter, check] = map.try_emplace(a, b);
+	if (!check)
+	{
+		map[a] += b;
+	}
+}
+
+static 	std::map<size_t, size_t>	blink(std::map<size_t, size_t>& data)
 {
 	int		digits;
+	std::map<size_t, size_t>	newData;
 	size_t	entries[2]{0, 0};
 
-	while (iter < 5)
+	for (auto& it : data)
 	{
-		iter++;
 		digits = 0;
-		if (input[0] == 0)
+		if (it.first == 0)
 		{
-			input[0] = 1;
+			tryToShoveIntoMap(newData, 1, it.second);
 		}
-		else if (amountOfDigits(input[0], digits) == true)
+		else if (amountOfDigits(it.first, digits) == true)
 		{
-			splitNumber(digits / 2, input[0], entries);
-			input[0] = entries[0];
-			input.push_back(entries[1]);
-			// blink(input, iter);
+			splitNumber(digits / 2, it.first, entries);
+			tryToShoveIntoMap(newData, entries[0], it.second);
+			tryToShoveIntoMap(newData, entries[1], it.second);
 		}
 		else
 		{
-			input[0] *= 2024;
+			tryToShoveIntoMap(newData, it.first * 2024, it.second);
 		}
 	}
-	input.erase(input.begin());
-	count++;
+	return (newData);
 }
 
 void	gold(std::vector<size_t> input)
 {
-	size_t	amount;
+	size_t	count = 0;
+	std::map<size_t, size_t>	data;
 
-	count = 0;
-	amount = input.size();
-	for (int i = 0; i < 5; i++)
+	for (size_t i = 0; i < input.size(); i++)
+		data.insert({input[i], 1});
+	// printMap(data);
+	for (int i = 0; i < 25; i++)
 	{
-		std::cout << "Iteration: " << i + 1 << std::endl;
-		for (size_t x = 0; x < amount; x++)
-		{
-			blink(input, i);
-			printArray(input, ' ');
-			// printArray(input, ' ');
-		}
+		data = blink(data);
+		// std::cout << "Iteration: " << i + 1 << std::endl;
 	}
-	std::cout << "Gold: " << count + input.size() << std::endl;
+	for (auto& it : data)
+	{
+		count += it.second;
+	}
+	// printMap(data);
+	std::cout << "Gold: " << count << std::endl;
 }

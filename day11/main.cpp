@@ -8,9 +8,9 @@ int main()
 	start = clock();
 	silver(input);
 	end = clock();
-	std::cout << "Silver took: " << (end - start) / 1000 << "ms" << std::endl;
+	std::cout << "Silver took: " << (end - start) << "ms" << std::endl;
 	start = clock();
 	gold(input);
 	end = clock();
-	std::cout << "Gold took: " << (end - start) / 1000 << "ms" << std::endl;
+	std::cout << "Gold took: " << (end - start) << "ms" << std::endl;
 }
