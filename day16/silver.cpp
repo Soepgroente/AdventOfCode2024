@@ -1,8 +1,5 @@
 #include "day16.hpp"
 
-void	turnLeft(int& dir);
-void	turnRight(int& dir);
-
 Point directions[4];
 Point start;
 Point end;
@@ -36,7 +33,6 @@ static void	findPath(std::vector<std::vector<int>>& maze, Point loc, int dir, in
 	if (total < maze[loc.x][loc.y])
 	{
 		maze[loc.x][loc.y] = total;
-		// findPath(maze, (loc + directions[dir]), dir, total + 1);
 	}
 	if (total > maze[loc.x][loc.y])
 	{
@@ -52,7 +48,7 @@ static void	findPath(std::vector<std::vector<int>>& maze, Point loc, int dir, in
 	findPath(maze, (loc + directions[dir]), dir, total + 1001);
 }
 
-void	silver(std::vector<std::vector<char>> in, Point s, Point e)
+std::vector<std::vector<int>>	silver(std::vector<std::vector<char>> in, Point s, Point e)
 {
 	std::vector<std::vector<int>>	maze = copyInput(in);
 
@@ -63,6 +59,6 @@ void	silver(std::vector<std::vector<char>> in, Point s, Point e)
 	directions[RIGHT] = Point(0, 1);
 	directions[DOWN] = Point(1, 0);
 	findPath(maze, start, RIGHT, 0);
-	// printGrid(maze);
 	std::cout << "Silver: " << maze[e.x][e.y] << std::endl;
+	return (maze);
 }

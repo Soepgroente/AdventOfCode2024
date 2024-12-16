@@ -37,13 +37,15 @@ std::vector<std::vector<char>>	parseInput(std::string location);
 
 /*	Main	*/
 
-void	silver(std::vector<std::vector<char>> in, Point start, Point end);
-void	gold(std::vector<std::vector<char>> in, Point start, Point end);
+std::vector<std::vector<int>>	silver(std::vector<std::vector<char>> in, Point s, Point e);
+void	gold(std::vector<std::vector<int>>& maze, Point s, Point e);
 
 /*	Utils	*/
 
 void							printGrid(std::vector<std::vector<char>>& grid);
 size_t							getTotal(std::vector<std::vector<char>>& grid, char box);
+void	turnLeft(int& dir);
+void	turnRight(int& dir);
 
 template <typename T>
 void	printArray(T& array, char space)

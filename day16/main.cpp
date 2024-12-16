@@ -19,6 +19,6 @@ int main()
 	Point	start = findPoint(maze, 'S');
 	Point	end = findPoint(maze, 'E');
 
-	silver(maze, start, end);
-	// gold(maze, start, end);
+	std::vector<std::vector<int>> map = silver(maze, start, end);
+	gold(map, start, end);
 }
