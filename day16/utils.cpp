@@ -1,13 +1,5 @@
 #include "day16.hpp"
 
-void	printGrid(std::vector<std::vector<char>>& grid)
-{
-	for (std::vector<char>& it : grid)
-	{
-		printArray(it, 0);
-	}
-}
-
 size_t	getTotal(std::vector<std::vector<char>>& grid, char box)
 {
 	size_t	results = 0;
@@ -21,4 +13,17 @@ size_t	getTotal(std::vector<std::vector<char>>& grid, char box)
 		}
 	}
 	return (results);
+}
+
+void	turnLeft(int& dir)
+{
+	if (dir == 0)
+		dir = 3;
+	else
+		dir--;
+}
+
+void	turnRight(int& dir)
+{
+	dir = (dir + 1) % 4;
 }

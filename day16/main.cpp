@@ -1,12 +1,12 @@
 #include "day16.hpp"
 
-static Point	findStart(std::vector<std::vector<char>>& grid)
+static Point	findPoint(std::vector<std::vector<char>>& grid, char toFind)
 {
 	for (size_t x = 0; x < grid.size(); x++)
 	{
 		for (size_t y = 0; y < grid[x].size(); y++)
 		{
-			if (grid[x][y] == '@')
+			if (grid[x][y] == toFind)
 				return (Point(x, y));
 		}
 	}
@@ -16,8 +16,9 @@ static Point	findStart(std::vector<std::vector<char>>& grid)
 int main()
 {
 	std::vector<std::vector<char>>	maze = parseInput("input.txt");
-	Point	start = findStart(maze);
+	Point	start = findPoint(maze, 'S');
+	Point	end = findPoint(maze, 'E');
 
-	silver(maze, start);
-	gold(maze, start);
+	silver(maze, start, end);
+	// gold(maze, start, end);
 }

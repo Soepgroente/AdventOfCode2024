@@ -1,10 +1,11 @@
 NAME	=	day16.out
 RM		=	rm -rf
 CC		=	c++
-CFLAGS	=	-Wall -Werror -Wextra -std=c++20 #-g -fsanitize=address
+CFLAGS	=	-Wall -Werror -Wextra -std=c++20 -g #-fsanitize=address
 SRCS	=	gold.cpp \
 			main.cpp \
 			parse.cpp \
+			point.cpp \
 			silver.cpp \
 			utils.cpp \
 

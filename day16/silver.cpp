@@ -1,22 +1,68 @@
 #include "day16.hpp"
 
+void	turnLeft(int& dir);
+void	turnRight(int& dir);
+
 Point directions[4];
+Point start;
+Point end;
 
-static long	findPath(std::vector<std::vector<char>>& maze, Point loc, Point dir, size_t count)
+static std::vector<std::vector<int>>	copyInput(std::vector<std::vector<char>>& in)
 {
-	if ()
-	if (maze[loc.x + dir.x][loc.y + dir.y] != WALL)
-	{
-		count++;
+	std::vector<std::vector<int>>	maze;
 
+	maze.resize(in.size());
+	for (size_t x = 0; x < in.size(); x++)
+	{
+		for (size_t y = 0; y < in[x].size(); y++)
+		{
+			if (in[x][y] == '#')
+				maze[x].push_back(-1);
+			else if (in[x][y] == '.' || in[x][y] == 'E')
+				maze[x].push_back(INT32_MAX);
+			else if(in[x][y] == 'S')
+				maze[x].push_back(0);			
+		}
 	}
+	return (maze);
 }
 
-void	silver(std::vector<std::vector<char>> maze, Point start)
+static void	findPath(std::vector<std::vector<int>>& maze, Point loc, int dir, int total)
 {
-	directions[0] = Point(0, -1);
-	directions[1] = Point(-1, 0);
-	directions[2] = Point(0, 1);
-	directions[3] = Point(1, 0);
-	std::cout << "Silver: " << findPath(maze, start, directions[RIGHT], 0) << std::endl;
+	if (maze[loc.x][loc.y] == WALL)
+	{
+		return ;
+	}
+	if (total < maze[loc.x][loc.y])
+	{
+		maze[loc.x][loc.y] = total;
+		// findPath(maze, (loc + directions[dir]), dir, total + 1);
+	}
+	if (total > maze[loc.x][loc.y])
+	{
+		return ;
+	}
+	if (loc == end)
+		return ;
+	findPath(maze, (loc + directions[dir]), dir, total + 1);
+	turnLeft(dir);
+	findPath(maze, (loc + directions[dir]), dir, total + 1001);
+	turnRight(dir);
+	turnRight(dir);
+	findPath(maze, (loc + directions[dir]), dir, total + 1001);
+}
+
+void	silver(std::vector<std::vector<char>> in, Point s, Point e)
+{
+	std::vector<std::vector<int>>	maze = copyInput(in);
+
+	start = s;
+	end = e;
+	directions[LEFT] = Point(0, -1);
+	directions[UP] = Point(-1, 0);
+	directions[RIGHT] = Point(0, 1);
+	directions[DOWN] = Point(1, 0);
+	findPath(maze, start, RIGHT, 0);
+	// printGrid(maze);
+	std::cout << "Silver: " << maze[e.x][e.y] << std::endl;
 }

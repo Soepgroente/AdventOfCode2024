@@ -12,16 +12,21 @@
 #include <string>
 #include <unistd.h>
 #include <vector>
+#include <queue>
+#include <unordered_map>
+#include <functional>
+#include <cmath>
+#include <limits>
 
 #include "Point.hpp"
 
 enum	dirs
 {
+	WALL = -1,
 	LEFT,
 	UP,
 	RIGHT,
 	DOWN,
-	WALL = '#',
 	EMPTY = '.',
 	EXIT = 'E'
 };
@@ -32,8 +37,8 @@ std::vector<std::vector<char>>	parseInput(std::string location);
 
 /*	Main	*/
 
-void	silver(std::vector<std::vector<char>> maze, Point start);
-void	gold(std::vector<std::vector<char>> maze, Point start);
+void	silver(std::vector<std::vector<char>> in, Point start, Point end);
+void	gold(std::vector<std::vector<char>> in, Point start, Point end);
 
 /*	Utils	*/
 
@@ -50,4 +55,13 @@ void	printArray(T& array, char space)
 			std::cout << space;
 	}
 	std::cout << std::endl;
+}
+
+template <typename T>
+void	printGrid(std::vector<std::vector<T>>& grid)
+{
+	for (std::vector<T>& it : grid)
+	{
+		printArray(it, ' ');
+	}
 }
